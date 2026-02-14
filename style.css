@@ -1,0 +1,304 @@
+
+#background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #87ceeb, #e6f6ff);
+}
+
+#background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #0b0c0d, #141414);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.app {
+    backdrop-filter: blur(18px);
+   background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 35px 30px;
+    border-radius: 25px;
+    text-align: center;
+    width: 340px;
+    color: white;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    animation: floatCard 6s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+
+.search {
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 12px;
+    width: 65%;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.95);
+}
+
+button {
+    padding: 12px 18px;
+    border: none;
+    background: #ff7b00;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+
+.weather-box {
+    margin-top: 20px;
+    font-size: 18px;
+}
+.weather-box img {
+    width: 80px;
+}
+
+.weather-box h1 {
+    font-size: 40px;
+    margin: 5px 0;
+}
+
+.weather-box p {
+    margin: 5px;
+}
+.sunny {
+    background: linear-gradient(to right, #fceabb, #f8b500);
+}
+
+.cloudy {
+    background: linear-gradient(to right, #d7d2cc, #304352);
+}
+
+.rainy {
+    background: linear-gradient(to right, #4b79a1, #283e51);
+}
+
+/* REALISTIC RAIN */
+.rain::before,
+.rain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+/* Front fast rain */
+.rain::before {
+    background-image: 
+        linear-gradient(120deg, rgba(255,255,255,0.6) 1px, transparent 2px);
+    background-size: 3px 25px;
+    animation: rainFast 0.35s linear infinite;
+}
+
+/* Back slow rain (depth layer) */
+.rain::after {
+    background-image: 
+        linear-gradient(120deg, rgba(255,255,255,0.35) 1px, transparent 2px);
+    background-size: 3px 40px;
+    animation: rainSlow 0.8s linear infinite;
+}
+
+@keyframes rainFast {
+    from { background-position: 0 0; }
+    to { background-position: -200px 300px; }
+}
+
+@keyframes rainSlow {
+    from { background-position: 0 0; }
+    to { background-position: -150px 300px; }
+}
+
+
+
+/* SUNNY ANIMATION */
+.sunny::before {
+    content: "";
+    position: absolute;
+    top: -150px;
+    right: -150px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #fff9c4, #fbc02d);
+    border-radius: 50%;
+    animation: sunGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes sunGlow {
+    from { transform: scale(1); opacity: 0.9; }
+    to { transform: scale(1.2); opacity: 1; }
+}
+
+
+/* REAL SKY CLOUDS */
+.cloudy::before,
+.cloudy::after {
+    content: "";
+    position: absolute;
+    top: 5%;
+    filter: blur(8px);
+    width: 200%;
+    height: 60%;
+    animation: cloudsMove linear infinite;
+}
+
+/* Front clouds */
+.cloudy::before {
+    animation-duration: 90s;
+    background:
+        radial-gradient(circle at 10% 30%, white 60px, transparent 61px),
+        radial-gradient(circle at 14% 28%, white 90px, transparent 91px),
+        radial-gradient(circle at 20% 35%, white 70px, transparent 71px),
+        radial-gradient(circle at 30% 32%, white 95px, transparent 96px),
+
+        radial-gradient(circle at 50% 40%, white 60px, transparent 61px),
+        radial-gradient(circle at 54% 38%, white 90px, transparent 91px),
+        radial-gradient(circle at 60% 45%, white 70px, transparent 71px),
+        radial-gradient(circle at 70% 42%, white 95px, transparent 96px);
+}
+
+/* Back clouds */
+.cloudy::after {
+    top: 15%;
+    animation-duration: 140s;
+    opacity: 0.6;
+    background:
+        radial-gradient(circle at 20% 60%, white 120px, transparent 121px),
+        radial-gradient(circle at 30% 65%, white 150px, transparent 151px),
+        radial-gradient(circle at 40% 60%, white 130px, transparent 131px),
+        radial-gradient(circle at 55% 65%, white 160px, transparent 161px);
+}
+
+@keyframes cloudsMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+#rainCanvas {
+    position: absolute;
+    inset: 0;
+    display: none; 
+}
+
+
+h1, h2, p { color: white; }
+.weather-box img { filter: drop-shadow(0 5px 8px rgba(0,0,0,0.3)); }
+
+.toggle {
+    margin-top: 10px;
+}
+
+.toggle button {
+    background: rgba(255,255,255,0.3);
+    margin: 5px;
+}
+
+@media (max-width: 500px) {
+    .app {
+        width: 90%;
+        padding: 25px;
+        margin: 15px;
+    }
+
+    input {
+        width: 60%;
+    }
+}
+
+h1, h2, p {
+    color: white;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+#airQuality {
+    margin-top: 15px;
+    padding: 10px 10px;
+    border-radius: 15px;
+    background: rgba(250, 38, 38, 0.2);
+    backdrop-filter: blur(5px);
+}
+#airQuality h3 {
+    color: white;
+    margin: 0;
+}
+.weather-effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;   /* pushes background behind app */
+  overflow: hidden;
+}
+/* Night sky background */
+body.night {
+  background: linear-gradient(
+    to bottom,
+    #020111 0%,
+    #0f1020 40%,
+    #1b1d3a 70%,
+    #2b2f55 100%
+  );
+  transition: background 1s ease;
+}
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+/* Stars visible only at night */
+body.night .stars {
+  opacity: 1;
+}
+.stars::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+
+  box-shadow:
+    50px 80px white, 120px 200px white, 300px 150px white,
+    500px 90px white, 700px 220px white, 900px 60px white,
+    1100px 180px white, 1300px 40px white, 200px 400px white,
+    400px 350px white, 600px 420px white, 800px 370px white,
+    1000px 450px white, 1200px 380px white, 1400px 420px white,
+    1600px 120px white, 1700px 300px white, 1800px 500px white,
+    1500px 250px white, 1400px 150px white, 100px 500px white,
+    250px 600px white, 450px 700px white, 650px 550px white,
+    850px 650px white, 1050px 600px white, 1250px 700px white;
+
+  animation: twinkle 3s infinite alternate;
+}
+@keyframes twinkle {
+  from { opacity: 0.3; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1.2); }
+}

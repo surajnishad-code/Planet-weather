@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+     <div class="weather-effects">
+      <div class="rain"></div>
+      <div class="clouds"></div>
+      <div class="sun"></div>
+      <div class="stars"></div>
+  </div>
+  
+<div id="background">
+    <canvas id="rainCanvas"></canvas>
+</div>
+
+    <div class="app">
+        <h1>🌦 Planet Weather</h1>
+
+        <div class="search">
+            <input type="text" id="cityInput" placeholder="Enter city name">
+            <button id="searchBtn">Search</button>
+        </div>
+
+        <div class="toggle">
+    <button id="cBtn">°C</button>
+    <button id="fBtn">°F</button>
+</div>
+
+
+        <div id="weatherResult" class="weather-box">
+            <p>Enter a city to get weather</p>
+        </div>
+        <div id="airQuality"></div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
